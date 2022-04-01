@@ -31,4 +31,12 @@ public class Salgsituation {
     public ArrayList<Pris> getPrisArrayList() {
         return new ArrayList<>(prisArrayList);
     }
+
+    @Override
+    public String toString() {
+        return "Salgsituation{" +
+                "navn='" + navn + '\'' +
+                ", prisArrayList=" + prisArrayList +
+                '}';
+    }
 }

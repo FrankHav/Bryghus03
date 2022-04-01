@@ -12,3 +12,4 @@ public class FastRabat implements Rabat{
         return fastDiscount;
     }
 }
+

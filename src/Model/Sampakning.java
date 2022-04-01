@@ -33,4 +33,11 @@ public class Sampakning extends Produkt {
             produktArrayList.remove(produkt);
     }
 
+    @Override
+    public String toString() {
+        return "Sampakning{" +
+                "antal=" + antal +
+                ", produktArrayList=" + produktArrayList +
+                '}';
+    }
 }

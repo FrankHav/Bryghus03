@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Storage {
 private static final ArrayList<Salgsituation> SALGSITUATION_ARRAY_LIST = new ArrayList<>();
 private static final ArrayList<Ordre> ORDRE_ARRAY_LIST = new ArrayList<>();
+private static final ArrayList<Produktgruppe> PRODUKTGRUPPE_ARRAY_LIST = new ArrayList<>();
+
 
     //------------------------------------------------------------------------------------
     //Salgssituation
@@ -45,6 +47,24 @@ private static final ArrayList<Ordre> ORDRE_ARRAY_LIST = new ArrayList<>();
     public static void removeOrdre(Ordre ordre){
         if (ORDRE_ARRAY_LIST.contains(ordre)){
             ORDRE_ARRAY_LIST.remove(ordre);
+        }
+    }
+    //------------------------------------------------------------------------------------
+    //Produktgruppe
+    public static ArrayList<Produktgruppe> getProduktgruppeArrayList() {
+        return new ArrayList<>(PRODUKTGRUPPE_ARRAY_LIST);
+    }
+
+    public static Produktgruppe storeProduktgruppe(Produktgruppe produktgruppe){
+        if (!PRODUKTGRUPPE_ARRAY_LIST.contains(produktgruppe)){
+            PRODUKTGRUPPE_ARRAY_LIST.add(produktgruppe);
+        }
+        return produktgruppe;
+    }
+
+    public static void removeProduktgruppe(Produktgruppe produktgruppe){
+        if (!PRODUKTGRUPPE_ARRAY_LIST.contains(produktgruppe)){
+            PRODUKTGRUPPE_ARRAY_LIST.remove(produktgruppe);
         }
     }
 }

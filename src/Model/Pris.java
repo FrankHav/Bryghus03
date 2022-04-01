@@ -31,5 +31,12 @@ public class Pris {
         return produkt;
     }
 
-
+    @Override
+    public String toString() {
+        return "Pris{" +
+                "produktPris=" + produktPris +
+                ", antalKlip=" + antalKlip +
+                ", produkt=" + produkt +
+                '}';
+    }
 }
