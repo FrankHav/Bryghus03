@@ -63,4 +63,15 @@ public class OrdreLinje {
     public void setRabat(Rabat rabat) {
         this.rabat = rabat;
     }
+
+    @Override
+    public String toString() {
+        return "OrdreLinje{" +
+                "antalAfProdukter=" + antalAfProdukter +
+                ", linjeNr=" + linjeNr +
+                ", antalBrugteKlip=" + antalBrugteKlip +
+                ", pris=" + pris +
+                ", rabat=" + rabat +
+                '}';
+    }
 }

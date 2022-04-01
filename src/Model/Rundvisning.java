@@ -58,4 +58,15 @@ public class Rundvisning extends Ordre {
     public void setAntalPersoner(int antalPersoner) {
         this.antalPersoner = antalPersoner;
     }
+
+    @Override
+    public String toString() {
+        return "Rundvisning{" +
+                "startTid=" + startTid +
+                ", slutTid=" + slutTid +
+                ", datoForRundvisning=" + datoForRundvisning +
+                ", prisPrPerson=" + prisPrPerson +
+                ", antalPersoner=" + antalPersoner +
+                '}';
+    }
 }

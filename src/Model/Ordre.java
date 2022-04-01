@@ -43,4 +43,13 @@ public class Ordre {
     public LocalDate getDato() {
         return dato;
     }
+
+    @Override
+    public String toString() {
+        return "Ordre{" +
+                "betalingsForm='" + betalingsForm + '\'' +
+                ", dato=" + dato +
+                ", ordreLinjeArrayList=" + ordreLinjeArrayList +
+                '}';
+    }
 }

@@ -44,4 +44,14 @@ public class Udlejning extends Ordre {
     }
     //det virker måske
     //test
+
+
+    @Override
+    public String toString() {
+        return "Udlejning{" +
+                "startDato=" + startDato +
+                ", slutDato=" + slutDato +
+                ", pant=" + pant +
+                '}';
+    }
 }

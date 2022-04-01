@@ -20,7 +20,11 @@ public class Controller {
 
     public static Produktgruppe createProduktGruppe(String navn){
         Produktgruppe produktgruppe = new Produktgruppe(navn);
+        Storage.storeProduktgruppe(produktgruppe);
         return produktgruppe;
+    }
+    public static ArrayList<Produktgruppe> getProduktgrupper(){
+        return Storage.getProduktgruppeArrayList();
     }
 
     //------------------------------------------------------------------------------------
@@ -83,6 +87,14 @@ public class Controller {
     }
 
     public static int getBrugteKlip(){
+        return 0;
+    }
+    public static void initStorage(){
+        Produktgruppe produktgruppe1 = createProduktGruppe("Flaskeøl");
+        Produktgruppe produktgruppe2 = createProduktGruppe("Merch");
+        Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg","6% 60cl");
+        Produkt produkt2 = produktgruppe1.createProdukt("Pilsner","5% 60cl");
+        Produkt produkt3 = produktgruppe2.createProdukt("Classic","5% 60cl");
 
     }
 

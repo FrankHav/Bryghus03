@@ -24,4 +24,9 @@ public class Produktgruppe {
         return navn;
     }
 
+    @Override
+    public String toString() {
+        return "Produktgruppe{" +
+                "navn='" + navn;
+    }
 }

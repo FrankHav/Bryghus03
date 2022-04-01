@@ -35,4 +35,15 @@ public class Produkt {
     public Sampakning getSampakning() {
         return sampakning;
     }
+
+    @Override
+    public String toString() {
+        return "Produkt{" +
+                "navn='" + navn + '\'' +
+                ", beskrivelse='" + beskrivelse + '\'' +
+                ", lagerantal=" + lagerantal +
+                ", produktgruppe=" + produktgruppe +
+                ", sampakning=" + sampakning +
+                '}';
+    }
 }
