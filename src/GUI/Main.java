@@ -1,6 +1,6 @@
-package Gui;
+package GUI;
 
-import Gui.StartVindue;
+import GUI.StartVindue;
 import javafx.application.Application;
 
 public class Main {
