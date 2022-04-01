@@ -42,7 +42,8 @@ import javafx.stage.Stage;
             Tab tabStatistik = new Tab("Vis statistik");
 
             ProduktgruppePane opretProduktgruppePane = new ProduktgruppePane();
-            tabOpret.setContent(opretOrdinationsPane);
+            tabOpret.setContent(opretProduktgruppePane);
+            /*
             VisOrdinationPane visOrdinationPane = new VisOrdinationPane();
             tabVis.setContent(visOrdinationPane);
             StatistikPane statisikPane = new StatistikPane();
@@ -56,7 +57,7 @@ import javafx.stage.Stage;
                     .updateControls());
             tabStatistik.setOnSelectionChanged(event -> statisikPane
                     .updateControls());
-            tabOpret.setOnSelectionChanged(event -> opretOrdinationsPane.updateControls());
+            tabOpret.setOnSelectionChanged(event -> opretOrdinationsPane.updateControls());*/
 
         }
 

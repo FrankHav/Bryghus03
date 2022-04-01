@@ -1,4 +1,4 @@
-package GUI;
+package Gui;
 
 
 import Controller.Controller;
@@ -21,18 +21,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-public class ProduktgruppePane extends Application {
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("OCR løb");
-        GridPane pane = new GridPane();
-        this.initContent(pane);
-
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-    }
-    // -------------------------------------------------------------------------
+public class ProduktgruppePane extends GridPane {
 
     private final ListView<Produktgruppe> lvwProduktgruppe = new ListView<>();
     private final ListView<Produkt> lvwProdukt = new ListView<>();
@@ -42,48 +31,48 @@ public class ProduktgruppePane extends Application {
     private Label lblError;
 
 
-    private void initContent(GridPane pane) {
+    public ProduktgruppePane() {
         Controller.initStorage();
-        pane.setPadding(new Insets(20));
-        pane.setHgap(10);
-        pane.setVgap(10);
+        this.setPadding(new Insets(20));
+        this.setHgap(10);
+        this.setVgap(10);
 
         Label lblProduktgruppe = new Label("Produktgruppe");
-        pane.add(lblProduktgruppe, 0, 0);
+        this.add(lblProduktgruppe, 0, 0);
 
-        pane.add(lvwProduktgruppe, 0, 1);
+        this.add(lvwProduktgruppe, 0, 1);
         lvwProduktgruppe.getItems().setAll(Controller.getProduktgrupper());
         ChangeListener<Produktgruppe> listener = (ov, o, n) -> this.selectionChanged();
         lvwProduktgruppe.getSelectionModel().selectedItemProperty().addListener(listener);
 
 
         lblError = new Label();
-        pane.add(lblError, 0, 6);
+        this.add(lblError, 0, 6);
         lblError.setStyle("-fx-text-fill: red");
 
-        pane.add(lvwProdukt, 1, 1);
+        this.add(lvwProdukt, 1, 1);
         ChangeListener<Produkt> listener2 = (ov, o, n) -> this.selectionChanged2();
         //lvwProdukt.getSelectionModel().selectedItemProperty().addListener(listener2);
 
 
         Button btnProduktgruppe = new Button("Opret Produktgruppe");
-        pane.add(btnProduktgruppe, 0, 2);
-        pane.add(txfProduktgruppeNavn, 1, 2);
+        this.add(btnProduktgruppe, 0, 2);
+        this.add(txfProduktgruppeNavn, 1, 2);
         btnProduktgruppe.setOnAction(event -> opretProduktgruppe());
 
 
         Label lblProduktNavn = new Label("Navn: ");
-        pane.add(lblProduktNavn, 2, 2);
-        pane.add(txfProduktNavn, 3, 2);
+        this.add(lblProduktNavn, 2, 2);
+        this.add(txfProduktNavn, 3, 2);
 
         Button btnOpretProdukt = new Button("Opret Produkt");
-        pane.add(btnOpretProdukt, 2, 5);
+        this.add(btnOpretProdukt, 2, 5);
         btnOpretProdukt.setOnAction(event -> opretProdukt());
 
 
         Label lblProduktBeskrivelse = new Label("Beskrivelse: ");
-        pane.add(lblProduktBeskrivelse, 2, 3);
-        pane.add(txfProduktBeskrivelse, 3, 3);
+        this.add(lblProduktBeskrivelse, 2, 3);
+        this.add(txfProduktBeskrivelse, 3, 3);
 
 
     }
