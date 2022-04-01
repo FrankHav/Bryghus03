@@ -38,26 +38,13 @@ import javafx.stage.Stage;
             tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
             Tab tabOpret = new Tab("Produkter");
-            Tab tabVis = new Tab("Opret ordre");
-            Tab tabStatistik = new Tab("Vis statistik");
+
 
             ProduktgruppePane opretProduktgruppePane = new ProduktgruppePane();
             tabOpret.setContent(opretProduktgruppePane);
-            /*
-            VisOrdinationPane visOrdinationPane = new VisOrdinationPane();
-            tabVis.setContent(visOrdinationPane);
-            StatistikPane statisikPane = new StatistikPane();
-            tabStatistik.setContent(statisikPane);
 
             tabPane.getTabs().add(tabOpret);
-            tabPane.getTabs().add(tabVis);
-            tabPane.getTabs().add(tabStatistik);
 
-            tabVis.setOnSelectionChanged(event -> visOrdinationPane
-                    .updateControls());
-            tabStatistik.setOnSelectionChanged(event -> statisikPane
-                    .updateControls());
-            tabOpret.setOnSelectionChanged(event -> opretOrdinationsPane.updateControls());*/
 
         }
 
