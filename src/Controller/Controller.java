@@ -4,6 +4,7 @@ import Model.*;
 import Storage.Storage;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Controller {
@@ -85,16 +86,42 @@ public class Controller {
         }
         return resultat;
     }
-
     public static int getBrugteKlip(){
         return 0;
     }
+    //-----------------------------------------------------------------------------------
+    public static Rundvisning createRundvisning(String betalingsForm, LocalDate dato, String startTid, String slutTid, LocalDate datoForRundvisning){
+        Rundvisning rundvisning = new Rundvisning(betalingsForm, dato, startTid, slutTid, datoForRundvisning);
+        Storage.storeOrdre(rundvisning);
+        return rundvisning;
+    }
+    public static ArrayList<Ordre>getRundvisninger(){
+        ArrayList<Ordre> rundvisningerList = new ArrayList<>();
+
+        for(Ordre ordre: Storage.getOrdreArrayList()){
+            if(ordre instanceof Rundvisning){
+                rundvisningerList.add(ordre);
+            }
+        }
+        return rundvisningerList;
+    }
+
+
     public static void initStorage(){
+        Produktgruppe produktgruppeRund = createProduktGruppe("Rundvisning");
+        Salgsituation salgsituationRund = Controller.createSalgsSituation("Rundvisning");
+        Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning","tilRundvisning");
+        Pris pris1 = salgsituationRund.createPris(100,0,produktRund);
         Produktgruppe produktgruppe1 = createProduktGruppe("Flaskeøl");
         Produktgruppe produktgruppe2 = createProduktGruppe("Merch");
         Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg","6% 60cl");
         Produkt produkt2 = produktgruppe1.createProdukt("Pilsner","5% 60cl");
         Produkt produkt3 = produktgruppe2.createProdukt("Classic","5% 60cl");
+        Rundvisning rundvisning = createRundvisning("kort",LocalDate.now(), "09:30", "11:30",LocalDate.now());
+        Rundvisning rundvisning2 = createRundvisning("kort",LocalDate.now(), "11:30", "13:30",LocalDate.now());
+        rundvisning.createOrdrelinje(10,0,0, pris1);
+        rundvisning2.createOrdrelinje(15,0,0,pris1);
+
 
     }
 

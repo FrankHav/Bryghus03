@@ -4,60 +4,41 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Rundvisning extends Ordre {
-    private LocalTime startTid;
-    private LocalTime slutTid;
+    private String startTid;
+    private String slutTid;
     private LocalDate datoForRundvisning;
-    private int prisPrPerson;
-    private int antalPersoner;
 
-    /**
-     * @param antalPersoner Der skal være mindst 15 personer.
-     */
-    public Rundvisning(String betalingsForm, LocalDate dato,LocalTime startTid, LocalTime slutTid, LocalDate datoForRundvisning, int pris, int antalPersoner) {
+
+    public Rundvisning(String betalingsForm, LocalDate dato,String startTid, String slutTid, LocalDate datoForRundvisning) {
         super(betalingsForm, dato);
         this.startTid = startTid;
         this.slutTid = slutTid;
         this.datoForRundvisning = datoForRundvisning;
-        this.prisPrPerson = pris;
-        this.antalPersoner = antalPersoner;
     }
 
     @Override
     public double samletOrdrePris() {
-        return prisPrPerson*antalPersoner;
+        double rundvisningPris =getOrdreLinjeArrayList().get(0).getPris().getProduktPris();
+        int antal = getOrdreLinjeArrayList().get(0).getAntalAfProdukter();
+        return antal*rundvisningPris;
     }
 
-    public LocalTime getStartTid() {
+    public String getStartTid() {
         return startTid;
     }
 
-    public void setStartTid(LocalTime startTid) {
+    public void setStartTid(String startTid) {
         this.startTid = startTid;
     }
 
-    public LocalTime getSlutTid() {
+    public String getSlutTid() {
         return slutTid;
     }
 
-    public void setSlutTid(LocalTime slutTid) {
+    public void setSlutTid(String slutTid) {
         this.slutTid = slutTid;
     }
 
-    public int getPrisPrPerson() {
-        return prisPrPerson;
-    }
-
-    public void setPrisPrPerson(int prisPrPerson) {
-        this.prisPrPerson = prisPrPerson;
-    }
-
-    public int getAntalPersoner() {
-        return antalPersoner;
-    }
-
-    public void setAntalPersoner(int antalPersoner) {
-        this.antalPersoner = antalPersoner;
-    }
 
     @Override
     public String toString() {
@@ -65,8 +46,6 @@ public class Rundvisning extends Ordre {
                 "startTid=" + startTid +
                 ", slutTid=" + slutTid +
                 ", datoForRundvisning=" + datoForRundvisning +
-                ", prisPrPerson=" + prisPrPerson +
-                ", antalPersoner=" + antalPersoner +
                 '}';
     }
 }

@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
             Scene scene = new Scene(pane);
             stage.setScene(scene);
-            stage.setHeight(500);
+            stage.setHeight(750);
             stage.setWidth(800);
             stage.show();
         }
@@ -38,12 +38,19 @@ import javafx.stage.Stage;
             tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
             Tab tabOpret = new Tab("Produkter");
-
-
             ProduktgruppePane opretProduktgruppePane = new ProduktgruppePane();
             tabOpret.setContent(opretProduktgruppePane);
-
             tabPane.getTabs().add(tabOpret);
+
+            Tab tabRundvisning = new Tab("Rundvisning");
+            RundvisningPane opretRundvisningPane = new RundvisningPane();
+            tabRundvisning.setContent(opretRundvisningPane);
+            tabPane.getTabs().add(tabRundvisning);
+
+            Tab tabOrdre = new Tab("Ordre");
+            OpretOrdrePane opretOrdrePane = new OpretOrdrePane();
+            tabOrdre.setContent(opretOrdrePane);
+            tabPane.getTabs().add(tabOrdre);
 
 
         }
