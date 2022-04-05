@@ -52,6 +52,11 @@ import javafx.stage.Stage;
             tabOrdre.setContent(opretOrdrePane);
             tabPane.getTabs().add(tabOrdre);
 
+            Tab tabUdlejning = new Tab("Udlejning");
+            UdlejningPane udlejningPane = new UdlejningPane();
+            tabUdlejning.setContent(udlejningPane);
+            tabPane.getTabs().add(tabUdlejning);
+
 
         }
 

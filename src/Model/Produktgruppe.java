@@ -20,6 +20,12 @@ public class Produktgruppe {
         return produkt;
     }
 
+    public Pant createPant(String navn, String beskrivelse, double pant) {
+        Pant pantObjekt = new Pant(navn,beskrivelse,this,pant);
+        produktArrayList.add(pantObjekt);
+        return pantObjekt;
+    }
+
     public String getNavn() {
         return navn;
     }

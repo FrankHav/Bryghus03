@@ -1,5 +1,6 @@
 package Controller;
 
+import GUI.UdlejningPane;
 import Model.*;
 import Storage.Storage;
 
@@ -107,6 +108,39 @@ public class Controller {
         return rundvisningerList;
     }
     //-----------------------------------------------------------------------------------
+    public static Udlejning createUdlejning(String betalingsForm, LocalDate dato, LocalDate startDato, LocalDate slutDato){
+        Udlejning udlejning = new Udlejning(betalingsForm, dato, startDato, slutDato);
+        Storage.storeOrdre(udlejning);
+        return udlejning;
+    }
+    public static ArrayList<Ordre>getUdlejningerAfklaret(){
+        ArrayList<Ordre> udlejningList = new ArrayList<>();
+
+        for(Ordre ordre: Storage.getOrdreArrayList()){
+            if(ordre instanceof Udlejning && ordre.getBetalingsForm()!=null){
+                udlejningList.add(ordre);
+            }
+        }
+        return udlejningList;
+    }
+
+    public static ArrayList<Ordre>getUdlejningerIkkeAfklaret(){
+        ArrayList<Ordre> udlejningList = new ArrayList<>();
+
+        for(Ordre ordre: Storage.getOrdreArrayList()){
+            if(ordre instanceof Udlejning && ordre.getBetalingsForm()==null){
+                udlejningList.add(ordre);
+            }
+        }
+        return udlejningList;
+    }
+    //-----------------------------------------------------------------------------------
+    public static Pant createPant(String navn, String beskrivelse, Produktgruppe produktgruppe, double pant){
+        Pant pantObjekt = produktgruppe.createPant(navn,beskrivelse,pant);
+        return pantObjekt;
+    }
+
+    //-----------------------------------------------------------------------------------
     public static FastRabat createFastRabat(Double fastDiscount){
         FastRabat fastRabat = new FastRabat(fastDiscount);
         return fastRabat;
@@ -118,19 +152,26 @@ public class Controller {
 
 
 
+
     public static void initStorage(){
         Produktgruppe produktgruppeRund = createProduktGruppe("Rundvisning");
         Produktgruppe produktgruppe1 = createProduktGruppe("Flaskeøl");
         Produktgruppe produktgruppe2 = createProduktGruppe("Merch");
+        Produktgruppe fustage = createProduktGruppe("Fustage");
+        Produktgruppe kulsyre = createProduktGruppe("Kulsyre");
+
         Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning","tilRundvisning");
         Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg","6% 60cl");
         Produkt produkt2 = produktgruppe1.createProdukt("Pilsner","5% 60cl");
         Produkt produkt3 = produktgruppe2.createProdukt("Classic","5% 60cl");
+        Pant Klosterbryg = fustage.createPant("Klosterbryg","20L",200);
+        Pant Kulsyre1 = kulsyre.createPant("Kulsyre","6 kg",1000);
 
 
         Salgsituation salgsituationRund = Controller.createSalgsSituation("Rundvisning");
         Salgsituation salgsituationButik = Controller.createSalgsSituation("Butik");
         Salgsituation salgsituationFredagsBar = Controller.createSalgsSituation("Fredagsbar");
+        Salgsituation salgsituationUdlejning = Controller.createSalgsSituation("Udlejning");
 
         Pris pris1 = salgsituationRund.createPris(100,0,produktRund);
         Pris pris2 = salgsituationButik.createPris(35,0,produkt1);
@@ -140,6 +181,8 @@ public class Controller {
         Pris pris5 = salgsituationFredagsBar.createPris(70,2,produkt1);
         Pris pris6 = salgsituationFredagsBar.createPris(70,2,produkt2);
         Pris pris7 = salgsituationFredagsBar.createPris(70,2,produkt3);
+        Pris pris8 = salgsituationUdlejning.createPris(775,0,Klosterbryg);
+        Pris pris9 = salgsituationUdlejning.createPris(400,0,Kulsyre1);
 
 
 
@@ -148,6 +191,16 @@ public class Controller {
         Rundvisning rundvisning2 = createRundvisning("kort",LocalDate.now(), "11:30", "13:30",LocalDate.now());
         rundvisning.createOrdrelinje(10,0,0, pris1);
         rundvisning2.createOrdrelinje(15,0,0,pris1);
+
+        Udlejning udlejning = createUdlejning(null,LocalDate.now(),LocalDate.now(),LocalDate.of(2022,05,04));
+        udlejning.createOrdrelinje(2,0,0,pris8);
+        udlejning.createOrdrelinje(4,0,0,pris9);
+
+
+        Udlejning udlejning2 = createUdlejning("Kort",LocalDate.now(),LocalDate.now(),LocalDate.of(2022,05,04));
+        udlejning2.createOrdrelinje(4,0,0,pris8);
+
+
 
 
 

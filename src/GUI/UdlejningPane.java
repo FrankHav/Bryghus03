@@ -9,10 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-public class RundvisningPane extends GridPane {
-    private final ListView<Ordre> lvwRundvisninger = new ListView<>();
+public class UdlejningPane extends GridPane {
+    private final ListView<Ordre> lvwUdlejningerIkkeAfregnet = new ListView<>();
+    private final ListView<Ordre> lvwUdlejningerAfregnet = new ListView<>();
     private final DatePicker txfDato = new DatePicker();
     private final TextField txfPris = new TextField();
     private final TextField txfAntalPersoner = new TextField();
@@ -24,18 +24,21 @@ public class RundvisningPane extends GridPane {
     private Label lblError;
 
 
-    public RundvisningPane() {
+    public UdlejningPane() {
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
 
-        Label lblProduktgruppe = new Label("Rundvisning oversigt");
+        Label lblProduktgruppe = new Label("Udlejnings oversigt");
         this.add(lblProduktgruppe, 0, 0);
 
-        this.add(lvwRundvisninger, 0, 1);
-        lvwRundvisninger.getItems().setAll(Controller.getRundvisninger());
+        this.add(lvwUdlejningerIkkeAfregnet, 0, 1);
+        lvwUdlejningerIkkeAfregnet.getItems().setAll(Controller.getUdlejningerIkkeAfklaret());
         ChangeListener<Ordre> listener = (ov, o, n) -> this.selectionChanged();
-        lvwRundvisninger.getSelectionModel().selectedItemProperty().addListener(listener);
+        lvwUdlejningerIkkeAfregnet.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        this.add(lvwUdlejningerAfregnet,1,1);
+        lvwUdlejningerAfregnet.getItems().setAll(Controller.getUdlejningerAfklaret());
 
 
         lblError = new Label();
@@ -43,14 +46,16 @@ public class RundvisningPane extends GridPane {
         lblError.setStyle("-fx-text-fill: red");
 
 
-
-        Label lblPris = new Label("PrisPrPerson: ");
+        Label lblPris = new Label("Start dato: ");
         this.add(lblPris, 2, 2);
         this.add(txfPris, 3, 2);
 
-        Button btnOpretRundvisning = new Button("Opret rundvisning");
-        this.add(btnOpretRundvisning, 1, 4);
-        btnOpretRundvisning.setOnAction(event -> opretRundvisning());
+        Button btnOpretUdlejning = new Button("Opret udlejning");
+        this.add(btnOpretUdlejning, 1, 4);
+        btnOpretUdlejning.setOnAction(event -> opretUdlejning());
+
+        Button btnAfregnUdlejning= new Button("Afregn udlejning");
+        this.add(btnAfregnUdlejning, 1, 5);
 
 
         Label lblAntalPersoner = new Label("AntalPersoner: ");
@@ -65,7 +70,7 @@ public class RundvisningPane extends GridPane {
         this.add(lblSlutTid, 2, 5);
         this.add(txfSlutTid, 3, 5);
 
-        Label lblDato = new Label("Dato: ");
+        Label lblDato = new Label("AntalPersoner: ");
         this.add(lblDato, 2, 6);
         this.add(txfDato, 3, 6);
 
@@ -81,12 +86,12 @@ public class RundvisningPane extends GridPane {
     }
 
     private void selectionChanged() {
-        Rundvisning ordre = (Rundvisning) lvwRundvisninger.getSelectionModel().getSelectedItem();
+        Udlejning ordre = (Udlejning) lvwUdlejningerIkkeAfregnet.getSelectionModel().getSelectedItem();
         if (ordre != null) {
             txfTotalPris.setText(String.valueOf(ordre.samletOrdrePris()));
             txfBetalingsmetode.setText(ordre.getBetalingsForm());
-            txfSlutTid.setText(ordre.getSlutTid());
-            txfStartTid.setText(ordre.getStartTid());
+           /* txfSlutTid.setText(ordre.getSlutTid());
+            txfStartTid.setText(ordre.getStartTid());*/
             txfDato.setValue(ordre.getDato());
             txfPris.setText(String.valueOf(ordre.getOrdreLinjeArrayList().get(0).getPris().getProduktPris()));
             txfAntalPersoner.setText(String.valueOf(ordre.getOrdreLinjeArrayList().get(0).getAntalAfProdukter()));
@@ -100,8 +105,11 @@ public class RundvisningPane extends GridPane {
         }
 
     }
+    private void afregnUdlejning(){
 
-    private void opretRundvisning() {
+    }
+
+    private void opretUdlejning() {
         if (txfPris.getText().isEmpty()) {
             lblError.setText("Du skal vælge en pris.");
         }
@@ -136,7 +144,7 @@ public class RundvisningPane extends GridPane {
 
 
             Rundvisning rundvisning = Controller.createRundvisning(betalingsmetode,LocalDate.now(),startTid,slutTid,dato);
-            lvwRundvisninger.getItems().setAll(Controller.getRundvisninger());
+            lvwUdlejningerIkkeAfregnet.getItems().setAll(Controller.getRundvisninger());
             Controller.createOrdreLinje(antalPersoner,0,0,pris,rundvisning);
 
             selectionChanged();
@@ -144,5 +152,4 @@ public class RundvisningPane extends GridPane {
         }
 
     }
-
 }

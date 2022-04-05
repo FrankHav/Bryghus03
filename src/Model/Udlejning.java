@@ -5,13 +5,11 @@ import java.time.LocalDate;
 public class Udlejning extends Ordre {
     private LocalDate startDato;
     private LocalDate slutDato;
-    private int pant;
 
-    public Udlejning(String betalingsForm, LocalDate dato, LocalDate startDato, LocalDate slutDato, int pant) {
+    public Udlejning(String betalingsForm, LocalDate dato, LocalDate startDato, LocalDate slutDato) {
         super(betalingsForm, dato);
         this.startDato = startDato;
         this.slutDato = slutDato;
-        this.pant = pant;
     }
 
     public LocalDate getStartDato() {
@@ -30,28 +28,19 @@ public class Udlejning extends Ordre {
         this.slutDato = slutDato;
     }
 
-    public int getPant() {
-        return pant;
-    }
-
-    public void setPant(int pant) {
-        this.pant = pant;
-    }
 
     @Override
     public double samletOrdrePris() {
-        return super.samletOrdrePris() - pant;
+        return super.samletOrdrePris();
     }
-    //det virker måske
-    //test
+
 
 
     @Override
     public String toString() {
         return "Udlejning{" +
                 "startDato=" + startDato +
-                ", slutDato=" + slutDato +
-                ", pant=" + pant +
+                ", slutDato=" + slutDato+
                 '}';
     }
 }
