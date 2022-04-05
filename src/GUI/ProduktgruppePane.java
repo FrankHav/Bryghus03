@@ -113,7 +113,7 @@ public class ProduktgruppePane extends GridPane {
             String navn = txfProduktNavn.getText().trim();
             String beskrivelse = txfProduktBeskrivelse.getText().trim();
             Produktgruppe produktgruppe = lvwProduktgruppe.getSelectionModel().getSelectedItem();
-            produktgruppe.createProdukt(navn, beskrivelse);
+            Controller.createProdukt(navn, beskrivelse,produktgruppe);
             selectionChanged();
             lblError.setText("");
         }

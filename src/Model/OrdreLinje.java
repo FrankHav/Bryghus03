@@ -46,14 +46,17 @@ public class OrdreLinje {
 
     private double samletPris(){
         int klip = 0;
-        while (antalBrugteKlip != 0 && antalBrugteKlip>=pris.getAntalKlip()){
+        int antalKlip = antalBrugteKlip;
+        while (antalBrugteKlip != 0 && antalKlip>=pris.getAntalKlip()){
                 klip++;
-                antalBrugteKlip = antalBrugteKlip - pris.getAntalKlip();
+                antalKlip = antalKlip - pris.getAntalKlip();
         }
-        return antalAfProdukter - klip * pris.getProduktPris();
+        if (klip>0)
+            return (antalAfProdukter - klip) * pris.getProduktPris();
+        return antalAfProdukter * pris.getProduktPris();
     }
 
-    public Double getSamletPrisMedRabat() {
+    public double getSamletPrisMedRabat() {
         double sum = samletPris();
         if (rabat!= null)
         sum = sum - rabat.getRabat(sum);

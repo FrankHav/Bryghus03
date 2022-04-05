@@ -31,6 +31,10 @@ public class Pris {
         return produkt;
     }
 
+    public void setProdukt(Produkt produkt) {
+        this.produkt = produkt;
+    }
+
     @Override
     public String toString() {
         return "Pris{" +

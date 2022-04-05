@@ -63,6 +63,7 @@ public class Controller {
         return Storage.getOrdreArrayList();
     }
 
+
     //-----------------------------------------------------------------------------------
     //OrdreLinje
 
@@ -105,22 +106,49 @@ public class Controller {
         }
         return rundvisningerList;
     }
+    //-----------------------------------------------------------------------------------
+    public static FastRabat createFastRabat(Double fastDiscount){
+        FastRabat fastRabat = new FastRabat(fastDiscount);
+        return fastRabat;
+    }
+    public static ProcentRabat createProcentRabat(Double procentDiscount){
+        ProcentRabat procentRabat = new ProcentRabat(procentDiscount);
+        return procentRabat;
+    }
+
 
 
     public static void initStorage(){
         Produktgruppe produktgruppeRund = createProduktGruppe("Rundvisning");
-        Salgsituation salgsituationRund = Controller.createSalgsSituation("Rundvisning");
-        Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning","tilRundvisning");
-        Pris pris1 = salgsituationRund.createPris(100,0,produktRund);
         Produktgruppe produktgruppe1 = createProduktGruppe("Flaskeøl");
         Produktgruppe produktgruppe2 = createProduktGruppe("Merch");
+        Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning","tilRundvisning");
         Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg","6% 60cl");
         Produkt produkt2 = produktgruppe1.createProdukt("Pilsner","5% 60cl");
         Produkt produkt3 = produktgruppe2.createProdukt("Classic","5% 60cl");
+
+
+        Salgsituation salgsituationRund = Controller.createSalgsSituation("Rundvisning");
+        Salgsituation salgsituationButik = Controller.createSalgsSituation("Butik");
+        Salgsituation salgsituationFredagsBar = Controller.createSalgsSituation("Fredagsbar");
+
+        Pris pris1 = salgsituationRund.createPris(100,0,produktRund);
+        Pris pris2 = salgsituationButik.createPris(35,0,produkt1);
+        Pris pris3 = salgsituationButik.createPris(35,0,produkt2);
+        Pris pris4 = salgsituationButik.createPris(35,0,produkt3);
+
+        Pris pris5 = salgsituationFredagsBar.createPris(70,2,produkt1);
+        Pris pris6 = salgsituationFredagsBar.createPris(70,2,produkt2);
+        Pris pris7 = salgsituationFredagsBar.createPris(70,2,produkt3);
+
+
+
+
         Rundvisning rundvisning = createRundvisning("kort",LocalDate.now(), "09:30", "11:30",LocalDate.now());
         Rundvisning rundvisning2 = createRundvisning("kort",LocalDate.now(), "11:30", "13:30",LocalDate.now());
         rundvisning.createOrdrelinje(10,0,0, pris1);
         rundvisning2.createOrdrelinje(15,0,0,pris1);
+
 
 
     }

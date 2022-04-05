@@ -44,6 +44,10 @@ public class Ordre {
         return dato;
     }
 
+    public void setBetalingsForm(String betalingsForm) {
+        this.betalingsForm = betalingsForm;
+    }
+
     @Override
     public String toString() {
         return "Ordre{" +
