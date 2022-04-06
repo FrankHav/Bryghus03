@@ -57,6 +57,11 @@ import javafx.stage.Stage;
             tabUdlejning.setContent(udlejningPane);
             tabPane.getTabs().add(tabUdlejning);
 
+            Tab tabSalgssituation = new Tab("Salgssituation");
+            OpretSalgssituationPane opretSalgssituationPane = new OpretSalgssituationPane();
+            tabSalgssituation.setContent(opretSalgssituationPane);
+            tabPane.getTabs().add(tabSalgssituation);
+
 
         }
 
