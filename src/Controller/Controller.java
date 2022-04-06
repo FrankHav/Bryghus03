@@ -12,7 +12,7 @@ public class Controller {
     //------------------------------------------------------------------------------------
     //Produkt
 
-    public static Produkt createProdukt(String navn, String beskrivelse, Produktgruppe produktgruppe){
+    public static Produkt createProdukt(String navn, String beskrivelse, Produktgruppe produktgruppe) {
         Produkt produkt = produktgruppe.createProdukt(navn, beskrivelse);
         return produkt;
     }
@@ -20,32 +20,33 @@ public class Controller {
     //------------------------------------------------------------------------------------
     //Produktgruppe
 
-    public static Produktgruppe createProduktGruppe(String navn){
+    public static Produktgruppe createProduktGruppe(String navn) {
         Produktgruppe produktgruppe = new Produktgruppe(navn);
         Storage.storeProduktgruppe(produktgruppe);
         return produktgruppe;
     }
-    public static ArrayList<Produktgruppe> getProduktgrupper(){
+
+    public static ArrayList<Produktgruppe> getProduktgrupper() {
         return Storage.getProduktgruppeArrayList();
     }
 
     //------------------------------------------------------------------------------------
     //SalgsSituation
 
-    public static Salgsituation createSalgsSituation(String navn){
+    public static Salgsituation createSalgsSituation(String navn) {
         Salgsituation salgsituation = new Salgsituation(navn);
         Storage.storeSalgsSituation(salgsituation);
         return salgsituation;
     }
 
-    public static ArrayList<Salgsituation> getSalgsSituation(){
+    public static ArrayList<Salgsituation> getSalgsSituation() {
         return Storage.getSalgsituationArrayList();
     }
 
     //------------------------------------------------------------------------------------
     //pris
 
-    public static Pris createPris(double produktPris, int antalKlip, Produkt produkt, Salgsituation salgsituation){
+    public static Pris createPris(double produktPris, int antalKlip, Produkt produkt, Salgsituation salgsituation) {
         Pris pris = salgsituation.createPris(produktPris, antalKlip, produkt);
         return pris;
     }
@@ -54,13 +55,13 @@ public class Controller {
     //-----------------------------------------------------------------------------------
     //Ordre
 
-    public static Ordre createOrdre(String betalingsForm, LocalDate dato){
-        Ordre ordre = new Ordre(betalingsForm,dato);
+    public static Ordre createOrdre(String betalingsForm, LocalDate dato) {
+        Ordre ordre = new Ordre(betalingsForm, dato);
         Storage.storeOrdre(ordre);
         return ordre;
     }
 
-    public static ArrayList<Ordre> getOrdrer(){
+    public static ArrayList<Ordre> getOrdrer() {
         return Storage.getOrdreArrayList();
     }
 
@@ -68,7 +69,7 @@ public class Controller {
     //-----------------------------------------------------------------------------------
     //OrdreLinje
 
-    public static OrdreLinje createOrdreLinje(int antalAfProdukter, int linjeNr, int antalBrugteKlip,Pris pris,Ordre ordre){
+    public static OrdreLinje createOrdreLinje(int antalAfProdukter, int linjeNr, int antalBrugteKlip, Pris pris, Ordre ordre) {
         OrdreLinje ordreLinje = ordre.createOrdrelinje(antalAfProdukter, linjeNr, antalBrugteKlip, pris);
         return ordreLinje;
     }
@@ -76,96 +77,116 @@ public class Controller {
 
     //-----------------------------------------------------------------------------------
 
-    public static ArrayList<Ordre> salgMellemDatoer(LocalDate startDato, LocalDate slutDato){
+    public static ArrayList<Ordre> salgMellemDatoer(LocalDate startDato, LocalDate slutDato) {
         ArrayList<Ordre> resultat = new ArrayList<>();
-        for (int i = 0; i < Storage.getOrdreArrayList().size();i++){
+        for (int i = 0; i < Storage.getOrdreArrayList().size(); i++) {
             if (startDato.isAfter(Storage.getOrdreArrayList().get(i).getDato())
                     || startDato.isEqual(Storage.getOrdreArrayList().get(i).getDato())
                     && slutDato.isBefore(Storage.getOrdreArrayList().get(i).getDato())
-                    || slutDato.isEqual(Storage.getOrdreArrayList().get(i).getDato())){
+                    || slutDato.isEqual(Storage.getOrdreArrayList().get(i).getDato())) {
                 resultat.add(Storage.getOrdreArrayList().get(i));
             }
         }
         return resultat;
     }
-    public static int getBrugteKlip(){
+
+    public static int getBrugteKlip() {
         return 0;
     }
+
     //-----------------------------------------------------------------------------------
-    public static Rundvisning createRundvisning(String betalingsForm, LocalDate dato, String startTid, String slutTid, LocalDate datoForRundvisning){
+    public static Rundvisning createRundvisning(String betalingsForm, LocalDate dato, String startTid, String slutTid, LocalDate datoForRundvisning) {
         Rundvisning rundvisning = new Rundvisning(betalingsForm, dato, startTid, slutTid, datoForRundvisning);
         Storage.storeOrdre(rundvisning);
         return rundvisning;
     }
-    public static ArrayList<Ordre>getRundvisninger(){
+
+    public static ArrayList<Ordre> getRundvisninger() {
         ArrayList<Ordre> rundvisningerList = new ArrayList<>();
 
-        for(Ordre ordre: Storage.getOrdreArrayList()){
-            if(ordre instanceof Rundvisning){
+        for (Ordre ordre : Storage.getOrdreArrayList()) {
+            if (ordre instanceof Rundvisning) {
                 rundvisningerList.add(ordre);
             }
         }
         return rundvisningerList;
     }
+
     //-----------------------------------------------------------------------------------
-    public static Udlejning createUdlejning(String betalingsForm, LocalDate dato, LocalDate startDato, LocalDate slutDato){
+    public static Udlejning createUdlejning(String betalingsForm, LocalDate dato, LocalDate startDato, LocalDate slutDato) {
         Udlejning udlejning = new Udlejning(betalingsForm, dato, startDato, slutDato);
         Storage.storeOrdre(udlejning);
         return udlejning;
     }
-    public static ArrayList<Ordre>getUdlejningerAfklaret(){
+
+    public static ArrayList<Ordre> getUdlejningerAfklaret() {
         ArrayList<Ordre> udlejningList = new ArrayList<>();
 
-        for(Ordre ordre: Storage.getOrdreArrayList()){
-            if(ordre instanceof Udlejning && ordre.getBetalingsForm()!=null){
+        for (Ordre ordre : Storage.getOrdreArrayList()) {
+            if (ordre instanceof Udlejning && ordre.getBetalingsForm() != null) {
                 udlejningList.add(ordre);
             }
         }
         return udlejningList;
     }
 
-    public static ArrayList<Ordre>getUdlejningerIkkeAfklaret(){
+    public static ArrayList<Ordre> getUdlejningerIkkeAfklaret() {
         ArrayList<Ordre> udlejningList = new ArrayList<>();
 
-        for(Ordre ordre: Storage.getOrdreArrayList()){
-            if(ordre instanceof Udlejning && ordre.getBetalingsForm()==null){
+        for (Ordre ordre : Storage.getOrdreArrayList()) {
+            if (ordre instanceof Udlejning && ordre.getBetalingsForm() == null) {
                 udlejningList.add(ordre);
             }
         }
         return udlejningList;
     }
+
     //-----------------------------------------------------------------------------------
-    public static Pant createPant(String navn, String beskrivelse, Produktgruppe produktgruppe, double pant){
-        Pant pantObjekt = produktgruppe.createPant(navn,beskrivelse,pant);
+    public static Pant createPant(String navn, String beskrivelse, Produktgruppe produktgruppe, double pant) {
+        Pant pantObjekt = produktgruppe.createPant(navn, beskrivelse, pant);
         return pantObjekt;
     }
 
+    public static ArrayList<Pris> getPantProdukt() {
+        ArrayList<Pris> pantList = new ArrayList<>();
+
+        for (Produktgruppe produktgruppe : Storage.getProduktgruppeArrayList()) {
+            if (produktgruppe.getNavn().contains("Udlejning")) {
+                for (Produkt produkt : produktgruppe.getProduktArrayList()) {
+                    pantList.add(produkt.getPrisListe().get(0));
+                }
+            }
+        }
+        return pantList;
+    }
+
+
+
+
     //-----------------------------------------------------------------------------------
-    public static FastRabat createFastRabat(Double fastDiscount){
+    public static FastRabat createFastRabat(Double fastDiscount) {
         FastRabat fastRabat = new FastRabat(fastDiscount);
         return fastRabat;
     }
-    public static ProcentRabat createProcentRabat(Double procentDiscount){
+
+    public static ProcentRabat createProcentRabat(Double procentDiscount) {
         ProcentRabat procentRabat = new ProcentRabat(procentDiscount);
         return procentRabat;
     }
 
 
-
-
-    public static void initStorage(){
+    public static void initStorage() {
         Produktgruppe produktgruppeRund = createProduktGruppe("Rundvisning");
         Produktgruppe produktgruppe1 = createProduktGruppe("Flaskeøl");
         Produktgruppe produktgruppe2 = createProduktGruppe("Merch");
-        Produktgruppe fustage = createProduktGruppe("Fustage");
-        Produktgruppe kulsyre = createProduktGruppe("Kulsyre");
+        Produktgruppe udlejning = createProduktGruppe("Udlejning");
 
-        Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning","tilRundvisning");
-        Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg","6% 60cl");
-        Produkt produkt2 = produktgruppe1.createProdukt("Pilsner","5% 60cl");
-        Produkt produkt3 = produktgruppe2.createProdukt("Classic","5% 60cl");
-        Pant Klosterbryg = fustage.createPant("Klosterbryg","20L",200);
-        Pant Kulsyre1 = kulsyre.createPant("Kulsyre","6 kg",1000);
+        Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning", "tilRundvisning");
+        Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg", "6% 60cl");
+        Produkt produkt2 = produktgruppe1.createProdukt("Pilsner", "5% 60cl");
+        Produkt produkt3 = produktgruppe2.createProdukt("Classic", "5% 60cl");
+        Pant Klosterbryg = udlejning.createPant("Klosterbryg", "20L", 200);
+        Pant Kulsyre1 = udlejning.createPant("Kulsyre", "6 kg", 1000);
 
 
         Salgsituation salgsituationRund = Controller.createSalgsSituation("Rundvisning");
@@ -173,35 +194,30 @@ public class Controller {
         Salgsituation salgsituationFredagsBar = Controller.createSalgsSituation("Fredagsbar");
         Salgsituation salgsituationUdlejning = Controller.createSalgsSituation("Udlejning");
 
-        Pris pris1 = salgsituationRund.createPris(100,0,produktRund);
-        Pris pris2 = salgsituationButik.createPris(35,0,produkt1);
-        Pris pris3 = salgsituationButik.createPris(35,0,produkt2);
-        Pris pris4 = salgsituationButik.createPris(35,0,produkt3);
+        Pris pris1 = salgsituationRund.createPris(100, 0, produktRund);
+        Pris pris2 = salgsituationButik.createPris(35, 0, produkt1);
+        Pris pris3 = salgsituationButik.createPris(35, 0, produkt2);
+        Pris pris4 = salgsituationButik.createPris(35, 0, produkt3);
 
-        Pris pris5 = salgsituationFredagsBar.createPris(70,2,produkt1);
-        Pris pris6 = salgsituationFredagsBar.createPris(70,2,produkt2);
-        Pris pris7 = salgsituationFredagsBar.createPris(70,2,produkt3);
-        Pris pris8 = salgsituationUdlejning.createPris(775,0,Klosterbryg);
-        Pris pris9 = salgsituationUdlejning.createPris(400,0,Kulsyre1);
-
-
+        Pris pris5 = salgsituationFredagsBar.createPris(70, 2, produkt1);
+        Pris pris6 = salgsituationFredagsBar.createPris(70, 2, produkt2);
+        Pris pris7 = salgsituationFredagsBar.createPris(70, 2, produkt3);
+        Pris pris8 = salgsituationUdlejning.createPris(775, 0, Klosterbryg);
+        Pris pris9 = salgsituationUdlejning.createPris(400, 0, Kulsyre1);
 
 
-        Rundvisning rundvisning = createRundvisning("kort",LocalDate.now(), "09:30", "11:30",LocalDate.now());
-        Rundvisning rundvisning2 = createRundvisning("kort",LocalDate.now(), "11:30", "13:30",LocalDate.now());
-        rundvisning.createOrdrelinje(10,0,0, pris1);
-        rundvisning2.createOrdrelinje(15,0,0,pris1);
+        Rundvisning rundvisning = createRundvisning("kort", LocalDate.now(), "09:30", "11:30", LocalDate.now());
+        Rundvisning rundvisning2 = createRundvisning("kort", LocalDate.now(), "11:30", "13:30", LocalDate.now());
+        rundvisning.createOrdrelinje(10, 0, 0, pris1);
+        rundvisning2.createOrdrelinje(15, 0, 0, pris1);
 
-        Udlejning udlejning = createUdlejning(null,LocalDate.now(),LocalDate.now(),LocalDate.of(2022,05,04));
-        udlejning.createOrdrelinje(2,0,0,pris8);
-        udlejning.createOrdrelinje(4,0,0,pris9);
-
-
-        Udlejning udlejning2 = createUdlejning("Kort",LocalDate.now(),LocalDate.now(),LocalDate.of(2022,05,04));
-        udlejning2.createOrdrelinje(4,0,0,pris8);
+        Udlejning udlejningP = createUdlejning(null, LocalDate.now(), LocalDate.now(), LocalDate.of(2022, 05, 04));
+        udlejningP.createOrdrelinje(2, 0, 0, pris8);
+        udlejningP.createOrdrelinje(4, 0, 0, pris9);
 
 
-
+        Udlejning udlejning2 = createUdlejning("Kort", LocalDate.now(), LocalDate.now(), LocalDate.of(2022, 05, 04));
+        udlejning2.createOrdrelinje(4, 0, 0, pris8);
 
 
     }

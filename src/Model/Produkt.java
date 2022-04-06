@@ -6,8 +6,10 @@ public class Produkt {
     private String navn;
     private String beskrivelse;
     private int lagerantal;
+    private final ArrayList<Pris> prisListe = new ArrayList<>();
     private Produktgruppe produktgruppe;
     Sampakning sampakning;
+
 
 
     public Produkt(String navn, String beskrivelse,Produktgruppe produktgruppe) {
@@ -17,7 +19,15 @@ public class Produkt {
         this.produktgruppe = produktgruppe;
     }
 
-
+    public ArrayList<Pris> getPrisListe() {
+        return new ArrayList<>(prisListe);
+    }
+    public void addPris(Pris pris){
+        if(!prisListe.contains(pris)){
+            prisListe.add(pris);
+            pris.setProdukt(this);
+        }
+    }
     public String getNavn() {
         return navn;
     }
@@ -37,6 +47,8 @@ public class Produkt {
     public Sampakning getSampakning() {
         return sampakning;
     }
+
+
 
     @Override
     public String toString() {

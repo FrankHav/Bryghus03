@@ -36,6 +36,7 @@ public class Ordre {
         return sum;
     }
 
+
     public String getBetalingsForm() {
         return betalingsForm;
     }

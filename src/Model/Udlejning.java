@@ -34,6 +34,14 @@ public class Udlejning extends Ordre {
         return super.samletOrdrePris();
     }
 
+    public double samletPant(){
+        double sum = 0;
+        for(OrdreLinje ordreLinje:super.getOrdreLinjeArrayList()){
+            Pant pant = (Pant) ordreLinje.getPris().getProdukt();
+            sum+=pant.getPant()*ordreLinje.getAntalAfProdukter();
+        }
+        return sum;
+    }
 
 
     @Override
