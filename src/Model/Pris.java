@@ -16,7 +16,6 @@ public class Pris {
         this.produkt = produkt;
     }
 
-
     public double getProduktPris() {
         return produktPris;
     }
