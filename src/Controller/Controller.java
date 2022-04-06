@@ -3,6 +3,7 @@ package Controller;
 import GUI.UdlejningPane;
 import Model.*;
 import Storage.Storage;
+import org.w3c.dom.ls.LSOutput;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -85,11 +86,29 @@ public class Controller {
     public static int brugtKlip(LocalDate start, LocalDate slut){
         int solgt = 0;
         for(Ordre ordre: Storage.getOrdreArrayList())
-            if(ordre.getDato().isAfter(start) && ordre.getDato().isBefore(slut))
+            if(ordre.getDato().isAfter(start) || ordre.getDato().isEqual(start)  && ordre.getDato().isBefore(slut) || ordre.getDato().isEqual(slut))
                 for(OrdreLinje ordreLinje: ordre.getOrdreLinjeArrayList())
                     solgt +=ordreLinje.getAntalBrugteKlip();
         return solgt;
     }
+
+    public static ArrayList<Pant> udlejedeProdukterMellemDatoer(LocalDate startDato, LocalDate slutDato) {
+        ArrayList<Pant> resultat = new ArrayList<>();
+        for (int i = 0; i < Storage.getOrdreArrayList().size(); i++) {
+            if (Storage.getOrdreArrayList().get(i) instanceof Udlejning)
+                if (startDato.isBefore(((Udlejning) Storage.getOrdreArrayList().get(i)).getStartDato())
+                        || startDato.isEqual(((Udlejning) Storage.getOrdreArrayList().get(i)).getStartDato())
+                        && slutDato.isAfter(((Udlejning) Storage.getOrdreArrayList().get(i)).getSlutDato())
+                        || slutDato.isEqual(((Udlejning) Storage.getOrdreArrayList().get(i)).getSlutDato())) {
+                            for (OrdreLinje ordreLinje : Storage.getOrdreArrayList().get(i).getOrdreLinjeArrayList()){
+                                resultat.add((Pant) ordreLinje.getPris().getProdukt());
+                            }
+                }
+        }
+        return resultat;
+    }
+
+
 
 
 

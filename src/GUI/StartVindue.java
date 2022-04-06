@@ -72,6 +72,11 @@ import javafx.stage.Stage;
             tabSalgssituation.setContent(opretSalgssituationPane);
             tabPane.getTabs().add(tabSalgssituation);
 
+            Tab tabUdlejedeProdukterPane = new Tab("Udlejede produkter");
+            UdlejedeProdukterPane opretUdljedeProdukterPane = new UdlejedeProdukterPane();
+            tabUdlejedeProdukterPane.setContent(opretUdljedeProdukterPane);
+            tabPane.getTabs().add(tabUdlejedeProdukterPane);
+
 
         }
 
