@@ -26,6 +26,7 @@ public class Produkt {
     public ArrayList<Pris> getPrisListe() {
         return new ArrayList<>(prisListe);
     }
+
     public void addPris(Pris pris){
         if(!prisListe.contains(pris)){
             prisListe.add(pris);

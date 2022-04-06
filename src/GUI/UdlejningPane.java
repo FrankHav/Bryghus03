@@ -14,6 +14,7 @@ public class UdlejningPane extends GridPane {
     private final ListView<Ordre> lvwUdlejningerIkkeAfregnet = new ListView<>();
     private final ListView<Ordre> lvwUdlejningerAfregnet = new ListView<>();
     private final ComboBox<String> boxBetalingForm = new ComboBox<>();
+    private final TextField txfPrisAfregnet = new TextField();
 
 
     private Label lblError;
@@ -35,6 +36,8 @@ public class UdlejningPane extends GridPane {
 
         this.add(lvwUdlejningerAfregnet,2,1);
         lvwUdlejningerAfregnet.getItems().setAll(Controller.getUdlejningerAfklaret());
+        ChangeListener<Ordre> listener = (ov, o, n) -> this.selectionChanged();
+        lvwUdlejningerAfregnet.getSelectionModel().selectedItemProperty().addListener(listener);
 
         lblError = new Label();
         this.add(lblError, 0, 6);
@@ -46,17 +49,30 @@ public class UdlejningPane extends GridPane {
 
         Button btnAfregnUdlejning= new Button("Afregn udlejning");
         this.add(btnAfregnUdlejning, 1, 2);
+        btnAfregnUdlejning.setOnAction(event -> afregnUdlejning());
 
-        this.add(boxBetalingForm, 1,1);
-        boxBetalingForm.getItems().setAll("Kort", "Kontant", "Mobilepay");
+        Label lblAfregnet = new Label("Afregnet pris (Minus betyder penge tilbage)");
+        this.add(lblAfregnet,2,3);
+        this.add(txfPrisAfregnet,2,4);
+        txfPrisAfregnet.setEditable(false);
 
 
+    }
+
+    private void selectionChanged() {
+        Ordre selected = lvwUdlejningerAfregnet.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            txfPrisAfregnet.setText(String.valueOf(afregnetPris(lvwUdlejningerAfregnet.getSelectionModel().getSelectedItem())));
+        }
 
     }
 
 
     private void afregnUdlejning(){
-
+        AfregnUdlejningDialog afregnUdlejningDialog = new AfregnUdlejningDialog(lvwUdlejningerIkkeAfregnet.getSelectionModel().getSelectedItem());
+        afregnUdlejningDialog.showAndWait();
+        lvwUdlejningerIkkeAfregnet.getItems().setAll(Controller.getUdlejningerIkkeAfklaret());
+        lvwUdlejningerAfregnet.getItems().setAll(Controller.getUdlejningerAfklaret());
     }
 
     private void opretUdlejningDialog() {
@@ -64,4 +80,11 @@ public class UdlejningPane extends GridPane {
         udlejningDialog.showAndWait();
         lvwUdlejningerIkkeAfregnet.getItems().setAll(Controller.getUdlejningerIkkeAfklaret());
     }
+    private double afregnetPris(Ordre ordre){
+        double ordrePris = ordre.samletOrdrePris();
+        double pantPris = ((Udlejning) ordre).samletPant();
+
+        return ordrePris-pantPris;
+    }
+
 }

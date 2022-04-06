@@ -63,6 +63,13 @@ public class OrdreLinje {
         return sum;
     }
 
+    public double individueltPant(){
+        double sum = 0;
+            Pant pant = (Pant) getPris().getProdukt();
+            sum+=pant.getPant()*getAntalAfProdukter();
+        return sum;
+    }
+
     public void setRabat(Rabat rabat) {
         this.rabat = rabat;
     }
