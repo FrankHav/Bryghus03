@@ -124,12 +124,11 @@ public class OrdreDialog extends Stage {
     }
 
     private void lukOrdre() {
+        o.setBetalingsForm(boxBetaling.getValue());
         if (o.getBetalingsForm()==null)
             lblError.setText("Du skal vælge betalingsform!");
-        else {
-            o.setBetalingsForm(boxBetaling.getValue());
+        else
             this.hide();
-        }
     }
 
     private void selectionChanged() {
