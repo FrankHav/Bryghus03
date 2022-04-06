@@ -43,8 +43,12 @@ public class OpretSalgssituationPane extends GridPane {
         lvwProduktgruppe.getSelectionModel().selectedItemProperty().addListener(listener2);
 
         Button btnOpret = new Button("Opret salgssituation");
-        this.add(btnOpret, 2, 0);
+        this.add(btnOpret, 2, 3);
         btnOpret.setOnAction(event -> salgssituationDialog());
+
+        Button btnOpretPris = new Button("Opret pris");
+        this.add(btnOpretPris, 1, 3);
+        btnOpretPris.setOnAction(event -> opretPrisDialog());
 
 
         lblError = new Label();
@@ -63,10 +67,20 @@ public class OpretSalgssituationPane extends GridPane {
     private void selectionChanged2() {
         Produktgruppe selected = lvwProduktgruppe.getSelectionModel().getSelectedItem();
         if (selected != null) {
+            getProduktPris2(lvwSalgssituation.getSelectionModel().getSelectedItem(), lvwProdukt.getSelectionModel().getSelectedItem());
             lvwProdukt.getItems().setAll(selected.getProduktArrayList());
         }
     }
 
+
+    private void opretPrisDialog(){
+        PrisDialog prisDialog = new PrisDialog(lvwSalgssituation.getSelectionModel().getSelectedItem(), lvwProdukt.getSelectionModel().getSelectedItem());
+        prisDialog.showAndWait();
+        lvwSalgssituation.getItems().setAll(Controller.getSalgsSituation());
+        int index = lvwSalgssituation.getItems().size() - 1;
+        lvwSalgssituation.getSelectionModel().select(index);
+        lvwSalgssituation.getItems().setAll(Controller.getSalgsSituation());
+    }
 
     private void salgssituationDialog() {
         SalgssituationDialog salgssituationDialog = new SalgssituationDialog();
@@ -75,5 +89,20 @@ public class OpretSalgssituationPane extends GridPane {
         int index = lvwSalgssituation.getItems().size() - 1;
         lvwSalgssituation.getSelectionModel().select(index);
         lvwSalgssituation.getItems().setAll(Controller.getSalgsSituation());
+    }
+
+    private double getProduktPris(Salgsituation salgsituation){
+        double pris = 0;
+        for (int i = 0; i < salgsituation.getPrisArrayList().size();i++){
+            if (salgsituation.getPrisArrayList().contains(lvwProdukt.getSelectionModel().getSelectedItem()))
+                pris = salgsituation.getPrisArrayList().get(i).getProduktPris();
+        }
+        return pris;
+    }
+
+    private void getProduktPris2(Salgsituation salgsituation, Produkt produkt){
+        for (int i = 0; i < salgsituation.getPrisArrayList().size(); i++)
+        if (salgsituation.getPrisArrayList().contains(produkt))
+            produkt.setBeskrivelse(produkt.getBeskrivelse() + "Pris " + salgsituation.getPrisArrayList().get(i).getProduktPris() + "Antal klip " +salgsituation.getPrisArrayList().get(i).getAntalKlip());
     }
 }
