@@ -11,6 +11,10 @@ public class Pris {
         this.produkt = produkt;
     }
 
+    public void setProdukt(Produkt produkt) {
+        this.produkt = produkt;
+    }
+
     public double getProduktPris() {
         return produktPris;
     }

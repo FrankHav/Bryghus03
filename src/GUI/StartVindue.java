@@ -67,6 +67,11 @@ import javafx.stage.Stage;
             tabKlip.setContent(klipPane);
             tabPane.getTabs().add(tabKlip);
 
+            Tab tabSalgssituation = new Tab("Salgssituation");
+            OpretSalgssituationPane opretSalgssituationPane = new OpretSalgssituationPane();
+            tabSalgssituation.setContent(opretSalgssituationPane);
+            tabPane.getTabs().add(tabSalgssituation);
+
 
         }
 
