@@ -6,9 +6,9 @@ public class Produkt {
     private String navn;
     private String beskrivelse;
     private int lagerantal;
+    private final ArrayList<Pris> prisListe = new ArrayList<>();
     private Produktgruppe produktgruppe;
     Sampakning sampakning;
-    private final ArrayList<Pris> prisArrayList = new ArrayList<>();
 
 
     public Produkt(String navn, String beskrivelse,Produktgruppe produktgruppe) {
@@ -18,16 +18,20 @@ public class Produkt {
         this.produktgruppe = produktgruppe;
     }
 
-    public void addPris(Pris pris){
-        if(!prisArrayList.contains(pris))
-            prisArrayList.add(pris);
-            pris.setProdukt(this);
-    }
 
     public void setBeskrivelse(String beskrivelse) {
         this.beskrivelse = beskrivelse;
     }
 
+    public ArrayList<Pris> getPrisListe() {
+        return new ArrayList<>(prisListe);
+    }
+    public void addPris(Pris pris){
+        if(!prisListe.contains(pris)){
+            prisListe.add(pris);
+            pris.setProdukt(this);
+        }
+    }
     public String getNavn() {
         return navn;
     }

@@ -168,6 +168,22 @@ public class Controller {
         return pantObjekt;
     }
 
+    public static ArrayList<Pris> getPantProdukt() {
+        ArrayList<Pris> pantList = new ArrayList<>();
+
+        for (Produktgruppe produktgruppe : Storage.getProduktgruppeArrayList()) {
+            if (produktgruppe.getNavn().contains("Udlejning")) {
+                for (Produkt produkt : produktgruppe.getProduktArrayList()) {
+                    pantList.add(produkt.getPrisListe().get(0));
+                }
+            }
+        }
+        return pantList;
+    }
+
+
+
+
     //-----------------------------------------------------------------------------------
     public static FastRabat createFastRabat(Double fastDiscount){
         FastRabat fastRabat = new FastRabat(fastDiscount);
@@ -187,7 +203,6 @@ public class Controller {
         Produktgruppe produktgruppe2 = createProduktGruppe("Merch");
         Produktgruppe fustage = createProduktGruppe("Fustage");
         Produktgruppe kulsyre = createProduktGruppe("Kulsyre");
-        Produktgruppe produktgruppeKlippekort = createProduktGruppe("Klippekort");
 
         Produkt produktRund = produktgruppeRund.createProdukt("Rundvisning","tilRundvisning");
         Produkt produkt1 = produktgruppe1.createProdukt("Forårsbryg","6% 60cl");
@@ -195,7 +210,6 @@ public class Controller {
         Produkt produkt3 = produktgruppe2.createProdukt("Classic","5% 60cl");
         Pant Klosterbryg = fustage.createPant("Klosterbryg","20L",200);
         Pant Kulsyre1 = kulsyre.createPant("Kulsyre","6 kg",1000);
-        Produkt produktKlippekort = produktgruppeKlippekort.createProdukt("Klippekort","4 Klip");
 
 
         Salgsituation salgsituationRund = Controller.createSalgsSituation("Rundvisning");
@@ -213,11 +227,6 @@ public class Controller {
         Pris pris7 = salgsituationFredagsBar.createPris(70,2,produkt3);
         Pris pris8 = salgsituationUdlejning.createPris(775,0,Klosterbryg);
         Pris pris9 = salgsituationUdlejning.createPris(400,0,Kulsyre1);
-        Pris prisKlippekort = salgsituationButik.createPris(130,4,produktKlippekort);
-        Pris prisKlippekort2 = salgsituationFredagsBar.createPris(130,4,produktKlippekort);
-
-        Ordre ordre1 = createOrdre("Kort",LocalDate.of(2022,4,6));
-        Ordre ordre2 = createOrdre("Kort",LocalDate.of(2022,4,7));
 
 
 

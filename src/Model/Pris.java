@@ -9,6 +9,11 @@ public class Pris {
         this.produktPris = produktPris;
         this.antalKlip = antalKlip;
         this.produkt = produkt;
+        produkt.addPris(this);
+    }
+
+    public void setProdukt(Produkt produkt) {
+        this.produkt = produkt;
     }
 
     public void setProdukt(Produkt produkt) {
