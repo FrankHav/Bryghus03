@@ -99,7 +99,7 @@ public class OrdreDialog extends Stage {
 
 
 
-        Label lblRabat = new Label("Giv rabat: ");
+        Label lblRabat = new Label("Procentvis rabat: ");
         pane.add(lblRabat, 2, 2);
         pane.add(txfProcentRabat, 3, 2);
 

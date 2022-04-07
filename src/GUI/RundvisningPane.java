@@ -18,8 +18,8 @@ public class RundvisningPane extends GridPane {
     private final TextField txfAntalPersoner = new TextField();
     private final TextField txfStartTid = new TextField();
     private final TextField txfSlutTid = new TextField();
-    private final TextField txfBetalingsmetode = new TextField();
     private final TextField txfTotalPris = new TextField();
+    private final ComboBox<String> boxBetaling = new ComboBox<>();
 
     private Label lblError;
 
@@ -71,7 +71,10 @@ public class RundvisningPane extends GridPane {
 
         Label lblBetalingsmetode = new Label("Betalingsmetode: ");
         this.add(lblBetalingsmetode, 2, 7);
-        this.add(txfBetalingsmetode, 3, 7);
+
+
+        this.add(boxBetaling, 3,7);
+        boxBetaling.getItems().setAll("Kort", "Kontant", "Mobilepay");
 
         Label lblTotalPris = new Label("Pris for rundvisning: ");
         this.add(lblTotalPris, 2, 8);
@@ -84,7 +87,7 @@ public class RundvisningPane extends GridPane {
         Rundvisning ordre = (Rundvisning) lvwRundvisninger.getSelectionModel().getSelectedItem();
         if (ordre != null) {
             txfTotalPris.setText(String.valueOf(ordre.samletOrdrePris()));
-            txfBetalingsmetode.setText(ordre.getBetalingsForm());
+            boxBetaling.valueProperty().set(ordre.getBetalingsForm());
             txfSlutTid.setText(ordre.getSlutTid());
             txfStartTid.setText(ordre.getStartTid());
             txfDato.setValue(ordre.getDato());
@@ -92,7 +95,7 @@ public class RundvisningPane extends GridPane {
             txfAntalPersoner.setText(String.valueOf(ordre.getOrdreLinjeArrayList().get(0).getAntalAfProdukter()));
         } else {
             txfTotalPris.clear();
-            txfBetalingsmetode.clear();
+            boxBetaling.valueProperty().set(null);
             txfSlutTid.clear();
             txfStartTid.clear();
             txfPris.clear();
@@ -117,7 +120,7 @@ public class RundvisningPane extends GridPane {
         if (txfDato.getValue().isBefore(LocalDate.now())) {
             lblError.setText("Vælg en senere dato");
         }
-        if (txfBetalingsmetode.getText().isEmpty()) {
+        if (boxBetaling.getValue() == null) {
             lblError.setText("Vælg en betalingsmetode");
         }
 
@@ -127,7 +130,7 @@ public class RundvisningPane extends GridPane {
             String startTid = txfStartTid.getText().trim();
             String slutTid = txfSlutTid.getText().trim();
             LocalDate dato = txfDato.getValue();
-            String betalingsmetode = txfBetalingsmetode.getText().trim();
+            String betalingsmetode = boxBetaling.getValue();
 
             Produktgruppe produktgruppe = Storage.getProduktgruppeArrayList().get(0);
             Produkt produkt = produktgruppe.getProduktArrayList().get(0);
