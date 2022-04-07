@@ -32,7 +32,6 @@ public class OrdreDialog extends Stage {
         this.setScene(scene);
     }
 
-    private final ListView<Produktgruppe> lvwProduktgruppe = new ListView<>();
     private final ListView<Pris> lvwProdukt = new ListView<>();
     private final ListView<Salgsituation> lvwSalgsituation = new ListView<>();
     private final ListView<OrdreLinje> lvwOrdreLinje = new ListView<>();
@@ -53,36 +52,33 @@ public class OrdreDialog extends Stage {
         pane.setHgap(10);
         pane.setVgap(10);
 
-        Label lblAntalProdukter = new Label("Antal");
-        pane.add(lblAntalProdukter,2,4);
-        pane.add(txfAntalProdukter,3,4);
+        Label lblAntalProdukter = new Label("       Antal:");
+        pane.add(lblAntalProdukter,1,4);
+        pane.add(txfAntalProdukter,2,4);
 
-        Label lblKlip = new Label("Antal Klip");
-        pane.add(lblKlip,2,5);
-        pane.add(txfKlip,3,5);
+        Label lblKlip = new Label("      Antal Klip:");
+        pane.add(lblKlip,1,5);
+        pane.add(txfKlip,2,5);
 
+        Label lblPrisen = new Label("      Samlet pris");
+        pane.add(lblPrisen,3,5);
         pane.add(txfSamletPris,3,6);
 
-        Label lblProduktgruppe = new Label("Produktgruppe");
-        pane.add(lblProduktgruppe, 1, 0);
-/*
-        pane.add(lvwProduktgruppe, 1, 1);
-        lvwProduktgruppe.setPrefHeight(200);
-        lvwProduktgruppe.setPrefWidth(200);
-        lvwProduktgruppe.getItems().setAll(Controller.getProduktgrupper());
-        ChangeListener<Produktgruppe> listener = (ov, o, n) -> this.selectionChanged();
-        lvwProduktgruppe.getSelectionModel().selectedItemProperty().addListener(listener);*/
+        Label lblProduktgruppe = new Label("Vælg salgssituation");
+        pane.add(lblProduktgruppe, 0, 0);
 
+        Label lblProdukter = new Label("Vælg produkt");
+        pane.add(lblProdukter, 1, 0);
+
+        Label lblKurv = new Label("Kurv");
+        pane.add(lblKurv, 0, 3);
 
         lblError = new Label();
         pane.add(lblError, 0, 6);
         lblError.setStyle("-fx-text-fill: red");
 
-        pane.add(lvwProdukt, 2, 1);
-        //ChangeListener<Produkt> listener2 = (ov, o, n) -> this.selectionChanged2();
+        pane.add(lvwProdukt, 1, 1,3,1);
         lvwProdukt.setPrefHeight(200);
-        lvwProdukt.setPrefWidth(200);
-        //lvwProdukt.getSelectionModel().selectedItemProperty().addListener(listener2);
 
 
         pane.add(lvwSalgsituation,0,1);
@@ -97,27 +93,25 @@ public class OrdreDialog extends Stage {
         lvwOrdreLinje.setPrefHeight(200);
         lvwOrdreLinje.setPrefWidth(200);
 
-
-
-        Label lblRabat = new Label("Giv rabat: ");
-        pane.add(lblRabat, 2, 2);
-        pane.add(txfProcentRabat, 3, 2);
+        Label lblRabat = new Label("     Giv rabat:");
+        pane.add(lblRabat, 1, 2);
+        pane.add(txfProcentRabat, 2, 2);
 
         Button btnOpretOrdrelinje = new Button("Tilføj til kurven");
         pane.add(btnOpretOrdrelinje, 2, 6);
         btnOpretOrdrelinje.setOnAction(event -> tilføjTilKurv());
 
-
-        Label lblPris = new Label("Aftalt rabat: ");
-        pane.add(lblPris, 2, 3);
-        pane.add(txfAftaltRabat, 3, 3);
-
+        Label lblPris = new Label("     Aftalt rabat:");
+        pane.add(lblPris, 1, 3);
+        pane.add(txfAftaltRabat, 2, 3);
 
         Button btnAfslutOrdre = new Button("Afslut");
-        pane.add(btnAfslutOrdre,1, 4);
+        pane.add(btnAfslutOrdre,0, 7);
         btnAfslutOrdre.setOnAction(event -> lukOrdre());
 
-        pane.add(boxBetaling, 3,1);
+        Label lblBetaling = new Label("Vælg betalingsmetode");
+        pane.add(lblBetaling,0,5    );
+        pane.add(boxBetaling, 0,6);
         boxBetaling.getItems().setAll("Kort", "Kontant", "Mobilepay");
 
 
