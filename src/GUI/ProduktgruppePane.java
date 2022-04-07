@@ -57,8 +57,11 @@ public class ProduktgruppePane extends GridPane {
 
         Button btnProduktgruppe = new Button("Opret Produktgruppe");
         this.add(btnProduktgruppe, 0, 2);
-        this.add(txfProduktgruppeNavn, 1, 2);
+        this.add(txfProduktgruppeNavn, 0, 4);
         btnProduktgruppe.setOnAction(event -> opretProduktgruppe());
+
+        Label lblProduktgruppeNavn = new Label("Produktgruppenavn: ");
+        this.add(lblProduktgruppeNavn,0,3);
 
 
         Label lblProduktNavn = new Label("Navn: ");

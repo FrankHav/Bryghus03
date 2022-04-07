@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.Controller;
+import Model.Pris;
 import Model.Produkt;
 import Model.Salgsituation;
 import javafx.geometry.Insets;
@@ -41,12 +42,15 @@ public class PrisDialog extends Stage {
         pane.setVgap(10);
 
         Label lblNavn = new Label("Pris");
-        pane.add(lblNavn, 0, 0);
+        pane.add(lblNavn, 0, 1);
 
         pane.add(txfPris, 1, 1);
+
+        Label lblKlip = new Label("Antal Klip: ");
+        pane.add(lblKlip,0,2);
         pane.add(txfAntalKlip, 1, 2);
 
-        Button btnOpret = new Button("Opret salgssituation");
+        Button btnOpret = new Button("Opret Pris for produkt");
         pane.add(btnOpret, 1, 0);
         btnOpret.setOnAction(event -> okAction());
 

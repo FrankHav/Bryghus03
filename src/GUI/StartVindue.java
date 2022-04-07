@@ -57,6 +57,11 @@ import javafx.stage.Stage;
             tabUdlejning.setContent(udlejningPane);
             tabPane.getTabs().add(tabUdlejning);
 
+            Tab tabSalgssituation = new Tab("Salgssituation");
+            OpretSalgssituationPane opretSalgssituationPane = new OpretSalgssituationPane();
+            tabSalgssituation.setContent(opretSalgssituationPane);
+            tabPane.getTabs().add(tabSalgssituation);
+
             Tab tabDagensSalg = new Tab("Dagens Salg");
             DagensSalgPane dagensSalgPanePane = new DagensSalgPane();
             tabDagensSalg.setContent(dagensSalgPanePane);
@@ -67,10 +72,7 @@ import javafx.stage.Stage;
             tabKlip.setContent(klipPane);
             tabPane.getTabs().add(tabKlip);
 
-            Tab tabSalgssituation = new Tab("Salgssituation");
-            OpretSalgssituationPane opretSalgssituationPane = new OpretSalgssituationPane();
-            tabSalgssituation.setContent(opretSalgssituationPane);
-            tabPane.getTabs().add(tabSalgssituation);
+
 
             Tab tabUdlejedeProdukterPane = new Tab("Udlejede produkter");
             UdlejedeProdukterPane opretUdljedeProdukterPane = new UdlejedeProdukterPane();
