@@ -4,7 +4,6 @@ package GUI;
 import Controller.Controller;
 import Model.Produkt;
 import Model.Produktgruppe;
-import Storage.Storage;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -97,8 +96,8 @@ public class ProduktgruppePane extends GridPane {
     private void opretProduktgruppe() {
         if (!txfProduktgruppeNavn.getText().isEmpty()) {
             String navn = txfProduktgruppeNavn.getText();
-            Produktgruppe produktgruppe = Controller.createProduktGruppe(navn);
-            lvwProduktgruppe.getItems().setAll(Storage.getProduktgruppeArrayList());
+            Controller.createProduktGruppe(navn);
+            lvwProduktgruppe.getItems().setAll(Controller.getProduktgrupper());
             lblError.setText("");
         } else lblError.setText("Produktgruppe skal have et navn");
 
