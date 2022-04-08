@@ -45,7 +45,7 @@ public class UdlejningDialog extends Stage {
         pane.setVgap(10);
 
         Label lblAntalProdukter = new Label("Antal");
-        pane.add(lblAntalProdukter,3,4);
+        pane.add(lblAntalProdukter,1,5);
         pane.add(txfAntalProdukter,3,5);
 
         Label lblStartDato = new Label("StartDato: ");
@@ -59,8 +59,8 @@ public class UdlejningDialog extends Stage {
         pane.add(dpfSlutDato, 3, 3);
 
 
-        Label lblPant = new Label("Samlet pant");
-        pane.add(lblPant,3,5);
+        Label lblPant = new Label("pant: ");
+        pane.add(lblPant,1,6);
         pane.add(txfPantPris,3,6);
         txfPantPris.setEditable(false);
 
@@ -87,7 +87,7 @@ public class UdlejningDialog extends Stage {
         btnOpretOrdrelinje.setOnAction(event -> tilføjTilUdlejning());
 
         Button btnAfslutOrdre = new Button("Afslut");
-        pane.add(btnAfslutOrdre,2, 6);
+        pane.add(btnAfslutOrdre,0, 6);
         btnAfslutOrdre.setOnAction(event -> afslutUdlejning());
 
 

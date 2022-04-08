@@ -93,7 +93,7 @@ public class OrdreDialog extends Stage {
         lvwOrdreLinje.setPrefHeight(200);
         lvwOrdreLinje.setPrefWidth(200);
 
-        Label lblRabat = new Label("     Giv rabat:");
+        Label lblRabat = new Label("Fast rabat: ");
         pane.add(lblRabat, 1, 2);
         pane.add(txfProcentRabat, 2, 2);
 

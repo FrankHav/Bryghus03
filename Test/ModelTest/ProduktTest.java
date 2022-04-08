@@ -25,7 +25,6 @@ public class ProduktTest {
         {
             //Arrange
             Produktgruppe produktgruppe = new Produktgruppe("Flaskeøl");
-
             //Act
             Produkt produkt = new Produkt(navn, beskrivelse, produktgruppe);
             //Assert

@@ -40,18 +40,22 @@ public class AfregnUdlejningDialog extends Stage {
         pane.setVgap(10);
 
 
-        pane.add(lvwOrdreLinje,1,0);
+        pane.add(lvwOrdreLinje,1,0,1,1);
         lvwOrdreLinje.getItems().setAll(ordre.getOrdreLinjeArrayList());
         ChangeListener<OrdreLinje> listener = (ov, o, n) -> this.selectionChanged();
         lvwOrdreLinje.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        pane.add(txfAntal, 2, 0);
+        Label lblAntal = new Label("Antal brugte produkter");
+        pane.add(lblAntal,2,1);
+        pane.add(txfAntal, 2, 2);
 
-        pane.add(txfSamletPris,3,0);
+        Label lblSamletPris = new Label("Samlet pris: ");
+        pane.add(lblSamletPris,3,1);
+        pane.add(txfSamletPris,3,2);
         txfSamletPris.setEditable(false);
 
         Button btnOK = new Button("Ok");
-        pane.add(btnOK,2,2);
+        pane.add(btnOK,2,3);
         btnOK.setOnAction(event -> okAction());
 
         pane.add(boxBetalingForm, 1,1);
@@ -80,9 +84,8 @@ public class AfregnUdlejningDialog extends Stage {
         int antal = Integer.parseInt(txfAntal.getText().trim());
 
         OrdreLinje selected = lvwOrdreLinje.getSelectionModel().getSelectedItem();
-        selected.setAntalAfProdukter(selected.getAntalAfProdukter()-antal);
-       txfSamletPris.setText(String.valueOf(sum+= selected.getSamletPrisMedRabat()-selected.individueltPant()));
-        //txfSamletPris.setText(ordre.samletOrdrePris() -);
+        double calc = antal * selected.getPris().getProduktPris();
+        txfSamletPris.setText(String.valueOf(sum += calc - selected.individueltPant()));
         lvwOrdreLinje.getItems().setAll(ordre.getOrdreLinjeArrayList());
     }
 

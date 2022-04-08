@@ -14,7 +14,6 @@ public class UdlejningPane extends GridPane {
     private final ListView<Ordre> lvwUdlejningerIkkeAfregnet = new ListView<>();
     private final ListView<Ordre> lvwUdlejningerAfregnet = new ListView<>();
     private final ComboBox<String> boxBetalingForm = new ComboBox<>();
-    private final TextField txfPrisAfregnet = new TextField();
 
 
     private Label lblError;
@@ -51,10 +50,6 @@ public class UdlejningPane extends GridPane {
         this.add(btnAfregnUdlejning, 1, 2);
         btnAfregnUdlejning.setOnAction(event -> afregnUdlejning());
 
-        Label lblAfregnet = new Label("Afregnet pris (Minus betyder penge tilbage)");
-        this.add(lblAfregnet,2,3);
-        this.add(txfPrisAfregnet,2,4);
-        txfPrisAfregnet.setEditable(false);
 
 
     }
@@ -62,7 +57,7 @@ public class UdlejningPane extends GridPane {
     private void selectionChanged() {
         Ordre selected = lvwUdlejningerAfregnet.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            txfPrisAfregnet.setText(String.valueOf(afregnetPris(lvwUdlejningerAfregnet.getSelectionModel().getSelectedItem())));
+
         }
 
     }

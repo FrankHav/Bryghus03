@@ -92,20 +92,31 @@ public class Controller {
         return solgt;
     }
 
-    public static ArrayList<Pant> udlejedeProdukterMellemDatoer(LocalDate startDato, LocalDate slutDato) {
+    public static ArrayList<Pant> udlejedeProdukterMellemDatoer(LocalDate startDato, LocalDate slutDato){
+        return udlejedeProdukterMellemDatoer(Storage.getOrdreArrayList(),startDato,slutDato);
+    }
+
+    public static ArrayList<Pant> udlejedeProdukterMellemDatoer(ArrayList<Ordre> ordrer,LocalDate startDato, LocalDate slutDato) {
         ArrayList<Pant> resultat = new ArrayList<>();
-        for (int i = 0; i < Storage.getOrdreArrayList().size(); i++) {
-            if (Storage.getOrdreArrayList().get(i) instanceof Udlejning)
-                if (startDato.isBefore(((Udlejning) Storage.getOrdreArrayList().get(i)).getStartDato())
-                        || startDato.isEqual(((Udlejning) Storage.getOrdreArrayList().get(i)).getStartDato())
-                        && slutDato.isAfter(((Udlejning) Storage.getOrdreArrayList().get(i)).getSlutDato())
-                        || slutDato.isEqual(((Udlejning) Storage.getOrdreArrayList().get(i)).getSlutDato())) {
-                            for (OrdreLinje ordreLinje : Storage.getOrdreArrayList().get(i).getOrdreLinjeArrayList()){
-                                resultat.add((Pant) ordreLinje.getPris().getProdukt());
-                            }
+        for (int i = 0; i < ordrer.size(); i++) {
+            if (ordrer.get(i) instanceof Udlejning){
+                Udlejning udlejning = (Udlejning) ordrer.get(i);
+                LocalDate startDatoUdlejning = udlejning.getStartDato();
+                LocalDate slutDatoUdlejning = udlejning.getSlutDato();
+                if (isBetween(startDato,slutDato,startDatoUdlejning) || isBetween(startDato,slutDato,slutDatoUdlejning)) {
+                    for (OrdreLinje ordreLinje : udlejning.getOrdreLinjeArrayList()) {
+                        resultat.add((Pant) ordreLinje.getPris().getProdukt());
+                    }
+                }
                 }
         }
         return resultat;
+    }
+    private static boolean isBetween(LocalDate start, LocalDate slut, LocalDate dato){
+        LocalDate startMinus1dag = start.minusDays(1);
+        LocalDate slutPlus1dag = slut.plusDays(1);
+        return dato.isAfter(startMinus1dag) && dato.isBefore(slutPlus1dag);
+
     }
 
 

@@ -25,7 +25,7 @@ public class UdlejedeProdukterPane extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
 
-        Label lblOrdre = new Label("Dagens Salg");
+        Label lblOrdre = new Label("Udlejede produkter");
         this.add(lblOrdre, 0, 0);
 
         this.add(lvwProdukter, 0, 1);
