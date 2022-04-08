@@ -129,9 +129,9 @@ public class RundvisningPane extends GridPane {
             LocalDate dato = txfDato.getValue();
             String betalingsmetode = txfBetalingsmetode.getText().trim();
 
-            Produktgruppe produktgruppe = Storage.getProduktgruppeArrayList().get(0);
+            Produktgruppe produktgruppe = Controller.getProduktgrupper().get(0);
             Produkt produkt = produktgruppe.getProduktArrayList().get(0);
-            Salgsituation salgsituation = Storage.getSalgsituationArrayList().get(0);
+            Salgsituation salgsituation = Controller.getSalgsSituation().get(0);
             Pris pris = salgsituation.createPris(Double.parseDouble(txfPris.getText()),0,produkt);
 
 

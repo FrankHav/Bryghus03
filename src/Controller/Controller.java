@@ -43,15 +43,6 @@ public class Controller {
         return Storage.getSalgsituationArrayList();
     }
 
-    //------------------------------------------------------------------------------------
-    //pris
-
-    public static Pris createPris(double produktPris, int antalKlip, Produkt produkt, Salgsituation salgsituation){
-        Pris pris = salgsituation.createPris(produktPris, antalKlip, produkt);
-        return pris;
-    }
-
-
     //-----------------------------------------------------------------------------------
     //Ordre
 
@@ -135,9 +126,7 @@ public class Controller {
         }
         return resultat;
     }
-    public static int getBrugteKlip(){
-        return 0;
-    }
+
     //-----------------------------------------------------------------------------------
     public static Rundvisning createRundvisning(String betalingsForm, LocalDate dato, String startTid, String slutTid, LocalDate datoForRundvisning){
         Rundvisning rundvisning = new Rundvisning(betalingsForm, dato, startTid, slutTid, datoForRundvisning);
@@ -182,10 +171,6 @@ public class Controller {
         return udlejningList;
     }
     //-----------------------------------------------------------------------------------
-    public static Pant createPant(String navn, String beskrivelse, Produktgruppe produktgruppe, double pant){
-        Pant pantObjekt = produktgruppe.createPant(navn,beskrivelse,pant);
-        return pantObjekt;
-    }
 
     public static ArrayList<Pris> getPantProdukt() {
         ArrayList<Pris> pantList = new ArrayList<>();
@@ -199,8 +184,6 @@ public class Controller {
         }
         return pantList;
     }
-
-
 
 
     //-----------------------------------------------------------------------------------
