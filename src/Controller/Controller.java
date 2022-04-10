@@ -87,6 +87,7 @@ public class Controller {
         return solgt;
     }
 
+    //Returnerer en liste med udelejede produkter indenfor en given slut og startdato.
     public static ArrayList<Pant> udlejedeProdukterMellemDatoer(LocalDate startDato, LocalDate slutDato){
         return udlejedeProdukterMellemDatoer(Storage.getOrdreArrayList(),startDato,slutDato);
     }
@@ -107,10 +108,11 @@ public class Controller {
         }
         return resultat;
     }
-    private static boolean isBetween(LocalDate start, LocalDate slut, LocalDate dato){
+    //returnerer hvorvidt en dato ligger imellem en given start og slutdato.
+    private static boolean isBetween(LocalDate start, LocalDate slut, LocalDate testDato){
         LocalDate startMinus1dag = start.minusDays(1);
         LocalDate slutPlus1dag = slut.plusDays(1);
-        return dato.isAfter(startMinus1dag) && dato.isBefore(slutPlus1dag);
+        return testDato.isAfter(startMinus1dag) && testDato.isBefore(slutPlus1dag);
 
     }
 
@@ -256,6 +258,11 @@ public class Controller {
 
         Udlejning udlejning2 = createUdlejning("Kort", LocalDate.now(), LocalDate.now(), LocalDate.of(2022, 05, 04));
         udlejning2.createOrdrelinje(4, 0, 0, pris8);
+
+        Ordre ordre1 = createOrdre("Kort",LocalDate.now());
+        ordre1.createOrdrelinje(2,0,2,pris5);
+        ordre1.createOrdrelinje(1,0,1,pris6);
+        ordre1.createOrdrelinje(3,0,0,pris7);
 
 
 
