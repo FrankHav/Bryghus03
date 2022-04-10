@@ -38,6 +38,7 @@ public class ControllerTest {
         udlejningStart30Jan.createOrdrelinje(5,0,0,pris3);
     }
 
+    //test af "udlejedeProdukterMellemDatoer()"
     @Test
     void udlejedeProdukterMellemDatoer_PåSlutDato(){
         //arrange
@@ -120,6 +121,127 @@ public class ControllerTest {
         for(Pant pant:forventetListe){
             assertTrue(faktiskListe.contains(pant));
         }
+    }
+//--------------------------------------------------------------------------------------------------------------
+    //Test af metoden "solgtKlip()"
+    @Test
+    void solgtKlip_PåSlutDatoFørsteSalg(){
+        //arrange
+        ArrayList<Ordre> ordrer = new ArrayList<>();
+        Ordre ordre12Klip = new Ordre("Kort",LocalDate.of(2022,01,1));
+        Ordre ordre8Klip = new Ordre("Kort",LocalDate.of(2022,01,10));
+        Ordre ordre4Klip = new Ordre("Kort",LocalDate.of(2022,01,30));
+        ordrer.add(ordre12Klip);
+        ordrer.add(ordre8Klip);
+        ordrer.add(ordre4Klip);
+        Produktgruppe klipGruppe = new Produktgruppe("Klip");
+        Salgsituation fredagsbar = new Salgsituation("Fredagsbar");
+        Produkt produktKlip = klipGruppe.createProdukt("Klippekort","Til køb af ting" );
+        Pris prisKlip = fredagsbar.createPris(100,0,produktKlip);
+        ordre12Klip.createOrdrelinje(3,0,0,prisKlip);
+        ordre8Klip.createOrdrelinje(2,0,0,prisKlip);
+        ordre4Klip.createOrdrelinje(1,0,0,prisKlip);
+
+
+        LocalDate startDato = LocalDate.of(2022,01,01);
+        LocalDate slutDato = LocalDate.of(2022,01,30);
+
+        //act
+        int expectedAntal = 24;
+
+        //assert
+        assertEquals(expectedAntal,Controller.solgtKlip(ordrer,startDato,slutDato));
+
+    }
+
+    @Test
+    void solgtKlip_1DagEfterFørsteSolgteKlip(){
+        //arrange
+        ArrayList<Ordre> ordrer = new ArrayList<>();
+        Ordre ordre12Klip = new Ordre("Kort",LocalDate.of(2022,01,1));
+        Ordre ordre8Klip = new Ordre("Kort",LocalDate.of(2022,01,10));
+        Ordre ordre4Klip = new Ordre("Kort",LocalDate.of(2022,01,30));
+        ordrer.add(ordre12Klip);
+        ordrer.add(ordre8Klip);
+        ordrer.add(ordre4Klip);
+        Produktgruppe klipGruppe = new Produktgruppe("Klip");
+        Salgsituation fredagsbar = new Salgsituation("Fredagsbar");
+        Produkt produktKlip = klipGruppe.createProdukt("Klippekort","Til køb af ting" );
+        Pris prisKlip = fredagsbar.createPris(100,0,produktKlip);
+        ordre12Klip.createOrdrelinje(3,0,0,prisKlip);
+        ordre8Klip.createOrdrelinje(2,0,0,prisKlip);
+        ordre4Klip.createOrdrelinje(1,0,0,prisKlip);
+
+
+        LocalDate startDato = LocalDate.of(2022,01,02);
+        LocalDate slutDato = LocalDate.of(2022,01,30);
+
+        //act
+        int expectedAntal = 12;
+
+        //assert
+        assertEquals(expectedAntal,Controller.solgtKlip(ordrer,startDato,slutDato));
+
+    }
+
+    @Test
+    void solgtKlip_påSlutDatoForSidsteSalg(){
+        //arrange
+        ArrayList<Ordre> ordrer = new ArrayList<>();
+        Ordre ordre12Klip = new Ordre("Kort",LocalDate.of(2022,01,1));
+        Ordre ordre8Klip = new Ordre("Kort",LocalDate.of(2022,01,10));
+        Ordre ordre4Klip = new Ordre("Kort",LocalDate.of(2022,01,30));
+        ordrer.add(ordre12Klip);
+        ordrer.add(ordre8Klip);
+        ordrer.add(ordre4Klip);
+        Produktgruppe klipGruppe = new Produktgruppe("Klip");
+        Salgsituation fredagsbar = new Salgsituation("Fredagsbar");
+        Produkt produktKlip = klipGruppe.createProdukt("Klippekort","Til køb af ting" );
+        Pris prisKlip = fredagsbar.createPris(100,0,produktKlip);
+        ordre12Klip.createOrdrelinje(3,0,0,prisKlip);
+        ordre8Klip.createOrdrelinje(2,0,0,prisKlip);
+        ordre4Klip.createOrdrelinje(1,0,0,prisKlip);
+
+
+        LocalDate startDato = LocalDate.of(2022,01,30);
+        LocalDate slutDato = LocalDate.of(2022,02,05);
+
+        //act
+        int expectedAntal = 4;
+
+        //assert
+        assertEquals(expectedAntal,Controller.solgtKlip(ordrer,startDato,slutDato));
+
+    }
+
+    @Test
+    void solgtKlip_DatoUdenForInterval(){
+        //arrange
+        ArrayList<Ordre> ordrer = new ArrayList<>();
+        Ordre ordre12Klip = new Ordre("Kort",LocalDate.of(2022,01,1));
+        Ordre ordre8Klip = new Ordre("Kort",LocalDate.of(2022,01,10));
+        Ordre ordre4Klip = new Ordre("Kort",LocalDate.of(2022,01,30));
+        ordrer.add(ordre12Klip);
+        ordrer.add(ordre8Klip);
+        ordrer.add(ordre4Klip);
+        Produktgruppe klipGruppe = new Produktgruppe("Klip");
+        Salgsituation fredagsbar = new Salgsituation("Fredagsbar");
+        Produkt produktKlip = klipGruppe.createProdukt("Klippekort","Til køb af ting" );
+        Pris prisKlip = fredagsbar.createPris(100,0,produktKlip);
+        ordre12Klip.createOrdrelinje(3,0,0,prisKlip);
+        ordre8Klip.createOrdrelinje(2,0,0,prisKlip);
+        ordre4Klip.createOrdrelinje(1,0,0,prisKlip);
+
+
+        LocalDate startDato = LocalDate.of(2022,02,02);
+        LocalDate slutDato = LocalDate.of(2022,02,03);
+
+        //act
+        int expectedAntal = 0;
+
+        //assert
+        assertEquals(expectedAntal,Controller.solgtKlip(ordrer,startDato,slutDato));
+
     }
 
 }

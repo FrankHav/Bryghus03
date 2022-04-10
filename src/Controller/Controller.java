@@ -65,9 +65,13 @@ public class Controller {
     }
 
     public static int solgtKlip(LocalDate start, LocalDate slut){
+        return solgtKlip(Storage.getOrdreArrayList(),start,slut);
+    }
+
+    public static int solgtKlip(ArrayList<Ordre> ordrer,LocalDate start, LocalDate slut){
         int solgt = 0;
-        for(Ordre ordre: Storage.getOrdreArrayList())
-            if(ordre.getDato().isAfter(start) && ordre.getDato().isBefore(slut))
+        for(Ordre ordre: ordrer)
+            if(isBetween(start,slut,ordre.getDato()))
                 for(OrdreLinje ordreLinje: ordre.getOrdreLinjeArrayList()){
                     if(ordreLinje.getPris().getProdukt().getNavn().contains("Klippekort"))
                         solgt += ordreLinje.getAntalAfProdukter();
@@ -77,7 +81,7 @@ public class Controller {
     public static int brugtKlip(LocalDate start, LocalDate slut){
         int solgt = 0;
         for(Ordre ordre: Storage.getOrdreArrayList())
-            if(ordre.getDato().isAfter(start) || ordre.getDato().isEqual(start)  && ordre.getDato().isBefore(slut) || ordre.getDato().isEqual(slut))
+            if(isBetween(start,slut,ordre.getDato()))
                 for(OrdreLinje ordreLinje: ordre.getOrdreLinjeArrayList())
                     solgt +=ordreLinje.getAntalBrugteKlip();
         return solgt;
