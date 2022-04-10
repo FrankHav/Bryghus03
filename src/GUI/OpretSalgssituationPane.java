@@ -90,7 +90,7 @@ public class OpretSalgssituationPane extends GridPane {
 
     private void opretPrisDialog(){
         if(lvwProdukt.getSelectionModel().getSelectedItem() == null)
-            lblError.setText("du skal vælge et produkt, og en salgsituation, at sætte en pris for");
+            lblError.setText("du skal vælge et produkt, og en salgsituation");
 
             else {
             PrisDialog prisDialog = new PrisDialog(lvwSalgssituation.getSelectionModel().getSelectedItem(), lvwProdukt.getSelectionModel().getSelectedItem());
